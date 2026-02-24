@@ -1,0 +1,49 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { getCollection, render } from 'astro:content';
+
+export async function getStaticPaths() {
+  const digests = await getCollection('digest');
+  return digests.map(d => ({
+    params: { slug: d.slug },
+    props: { digest: d },
+  }));
+}
+
+const { digest } = Astro.props;
+const { Content } = await render(digest);
+---
+
+<Layout title={digest.data.title}>
+  <article class="max-w-3xl mx-auto">
+    <header class="mb-8">
+      <div class="flex items-center gap-2 text-sm text-gray-500 mb-3">
+        <a href="/" class="hover:text-blue-600">首页</a>
+        <span>/</span>
+        <a href={`/archive/${new Date(digest.data.date).getFullYear()}`} class="hover:text-blue-600">
+          {new Date(digest.data.date).getFullYear()}年
+        </a>
+        <span>/</span>
+        <span>{digest.data.date.toLocaleDateString('zh-CN')}</span>
+      </div>
+      
+      <h1 class="text-3xl font-bold text-gray-900 mb-4">{digest.data.title}</h1>
+      
+      {digest.data.tags && digest.data.tags.length > 0 && (
+        <div class="flex flex-wrap gap-2">
+          {digest.data.tags.map(tag => (
+            <span class="px-3 py-1 bg-blue-50 text-blue-700 text-sm rounded-full">{tag}</span>
+          ))}
+        </div>
+      )}
+    </header>
+    
+    <div class="prose prose-lg max-w-none">
+      <Content />
+    </div>
+    
+    <footer class="mt-12 pt-8 border-t border-gray-200">
+      <a href="/" class="text-blue-600 hover:underline">← 返回首页</a>
+    </footer>
+  </article>
+</Layout>

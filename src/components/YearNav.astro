@@ -1,0 +1,19 @@
+---
+interface Props {
+  years: number[];
+  activeYear?: number;
+}
+
+const { years, activeYear } = Astro.props;
+---
+
+<nav class="flex flex-wrap gap-2 mb-8">
+  {years.map(year => (
+    <a
+      href={`/archive/${year}`}
+      class={`year-nav-item ${year === activeYear ? 'active' : ''}`}
+    >
+      {year}年
+    </a>
+  ))}
+</nav>

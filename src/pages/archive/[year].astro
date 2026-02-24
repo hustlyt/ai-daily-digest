@@ -1,0 +1,28 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import YearNav from '../../components/YearNav.astro';
+import MonthGrid from '../../components/MonthGrid.astro';
+import { getCollection } from 'astro:content';
+
+export async function getStaticPaths() {
+  const digests = await getCollection('digest');
+  const years = [...new Set(digests.map(d => new Date(d.data.date).getFullYear()))];
+  
+  return years.map(year => ({
+    params: { year: String(year) },
+    props: { year, digests },
+  }));
+}
+
+const { year, digests } = Astro.props;
+const allDigests = await getCollection('digest');
+const years = [...new Set(allDigests.map(d => new Date(d.data.date).getFullYear()))].sort((a, b) => b - a);
+---
+
+<Layout title={`${year}年归档`}>
+  <div class="space-y-6">
+    <h1 class="text-2xl font-bold text-gray-900">{year}年</h1>
+    <YearNav years={years} activeYear={year} />
+    <MonthGrid year={year} digests={digests} />
+  </div>
+</Layout>
