@@ -1,5 +1,10 @@
 @import "tailwindcss";
 
+/* Tailwind v4: 指定内容源 */
+@source "../components/**/*.astro";
+@source "../layouts/**/*.astro";
+@source "../pages/**/*.astro";
+
 /* 自定义样式 */
 body {
   background-color: #f9fafb;
