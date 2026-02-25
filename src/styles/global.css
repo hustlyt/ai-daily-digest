@@ -1,27 +1,17 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
 
-@layer base {
-  body {
-    @apply bg-gray-50 text-gray-900;
-  }
+/* 自定义样式 */
+body {
+  background-color: #f9fafb;
+  color: #111827;
+  font-family: system-ui, -apple-system, sans-serif;
 }
 
-@layer components {
-  .digest-card {
-    @apply bg-white rounded-lg shadow-sm border border-gray-200 p-6 hover:shadow-md transition-shadow;
-  }
-  
-  .year-nav-item {
-    @apply px-4 py-2 rounded-lg text-sm font-medium transition-colors;
-  }
-  
-  .year-nav-item.active {
-    @apply bg-blue-600 text-white;
-  }
-  
-  .year-nav-item:not(.active) {
-    @apply text-gray-600 hover:bg-gray-100;
-  }
+a {
+  color: #3b82f6;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
 }
