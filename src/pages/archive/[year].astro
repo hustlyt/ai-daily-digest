@@ -21,8 +21,15 @@ const years = [...new Set(allDigests.map(d => new Date(d.data.date).getFullYear(
 
 <Layout title={`${year}年归档`}>
   <div class="space-y-6">
-    <h1 class="text-2xl font-bold text-gray-900">{year}年</h1>
-    <YearNav years={years} activeYear={year} />
+    <nav class="text-sm">
+      <a href="/" class="text-blue-600 hover:text-blue-800 transition-colors">← 返回首页</a>
+    </nav>
+    
+    <header>
+      <h1 class="text-3xl font-bold text-gray-900 mb-4">{year}年</h1>
+      <YearNav years={years} activeYear={year} />
+    </header>
+    
     <MonthGrid year={year} digests={digests} />
   </div>
 </Layout>

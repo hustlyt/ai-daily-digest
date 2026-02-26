@@ -27,19 +27,32 @@ const monthNames = ['一月', '二月', '三月', '四月', '五月', '六月',
 ---
 
 <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-  {Array.from(byMonth.entries()).map(([month, items]) => (
-    <a 
-      href={items.length > 0 ? `/archive/${year}/${String(month).padStart(2, '0')}` : '#'}
-      class={`p-4 rounded-lg border transition-all ${
-        items.length > 0 
-          ? 'bg-white border-gray-200 hover:border-blue-400 hover:shadow-sm' 
-          : 'bg-gray-50 border-gray-100 opacity-50 cursor-default'
-      }`}
-    >
-      <div class="text-lg font-semibold text-gray-900">{monthNames[month - 1]}</div>
-      <div class="text-sm text-gray-500 mt-1">
-        {items.length > 0 ? `${items.length} 篇日报` : '无数据'}
+  {Array.from(byMonth.entries()).map(([month, items]) => {
+    const hasData = items.length > 0;
+    const href = hasData ? `/archive/${year}/${String(month).padStart(2, '0')}` : null;
+    
+    return (
+      <div
+        class={`p-4 rounded-lg border transition-all ${
+          hasData
+            ? 'bg-white border-gray-200 hover:border-blue-400 hover:shadow-md cursor-pointer'
+            : 'bg-gray-50 border-gray-100 opacity-50'
+        }`}
+      >
+        {hasData ? (
+          <a href={href} class="block">
+            <div class="text-lg font-semibold text-gray-900">{monthNames[month - 1]}</div>
+            <div class="text-sm text-gray-500 mt-1">
+              {items.length} 篇日报
+            </div>
+          </a>
+        ) : (
+          <div>
+            <div class="text-lg font-semibold text-gray-400">{monthNames[month - 1]}</div>
+            <div class="text-sm text-gray-400 mt-1">无数据</div>
+          </div>
+        )}
       </div>
-    </a>
-  ))}
+    );
+  })}
 </div>

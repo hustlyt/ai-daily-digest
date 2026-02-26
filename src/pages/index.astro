@@ -10,28 +10,31 @@ const latest = digests.sort((a, b) => +new Date(b.data.date) - +new Date(a.data.
 
 <Layout title="首页">
   <div class="space-y-8">
-    <section>
-      <h1 class="text-3xl font-bold text-gray-900 mb-2">AI Daily Digest</h1>
-      <p class="text-gray-600">每日 AI 资讯汇总与解读</p>
+    <section class="text-center py-8">
+      <h1 class="text-4xl font-bold text-gray-900 mb-3">AI Daily Digest</h1>
+      <p class="text-lg text-gray-600">每日 AI 资讯汇总与解读</p>
     </section>
 
     {latest && (
-      <section class="digest-card">
-        <div class="text-sm text-blue-600 font-medium mb-2">最新日报</div>
-        <h2 class="text-xl font-semibold mb-2">
-          <a href={`/digest/${latest.slug}`} class="hover:text-blue-600">
+      <section>
+        <div class="flex items-center gap-2 mb-4">
+          <span class="w-2 h-2 bg-green-500 rounded-full animate-pulse"></span>
+          <span class="text-sm font-medium text-green-600">最新日报</span>
+        </div>
+        <a href={`/digest/${latest.slug}`} class="block digest-card hover:shadow-md transition-shadow">
+          <h2 class="text-xl font-semibold text-gray-900 mb-2 hover:text-blue-600 transition-colors">
             {latest.data.title}
-          </a>
-        </h2>
-        <p class="text-gray-500 text-sm mb-3">{latest.data.date.toLocaleDateString('zh-CN')}</p>
-        {latest.data.summary && (
-          <p class="text-gray-700 line-clamp-3">{latest.data.summary}</p>
-        )}
+          </h2>
+          <p class="text-gray-500 text-sm mb-3">{latest.data.date.toLocaleDateString('zh-CN')}</p>
+          {latest.data.summary && (
+            <p class="text-gray-700 line-clamp-3 leading-relaxed">{latest.data.summary}</p>
+          )}
+        </a>
       </section>
     )}
 
     <section>
-      <h2 class="text-lg font-semibold mb-4">按年份浏览</h2>
+      <h2 class="text-lg font-semibold text-gray-900 mb-4">按年份浏览</h2>
       <YearNav years={years} />
     </section>
   </div>
