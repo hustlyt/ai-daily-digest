@@ -1,9 +1,8 @@
 @import "tailwindcss";
 
 /* Tailwind v4: 指定内容源 */
-@source "../components/**/*.astro";
-@source "../layouts/**/*.astro";
-@source "../pages/**/*.astro";
+@source "../**/*.astro";
+@source "../**/*.css";
 
 /* 自定义样式 */
 body {
